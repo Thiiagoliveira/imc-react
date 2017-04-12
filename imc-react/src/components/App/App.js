@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../../mkdir/pure-min.css';
 import '../../mkdir/side-menu.css';
 
-
 class App extends Component {
   constructor(props) {
     super();
@@ -11,41 +10,45 @@ class App extends Component {
       item: {
         nome: '',
         peso: '',
-        altura: ''
+        altura: '',
+        imc: ''
       }
     }
+
+    this.handleInputs = this.handleInputs.bind(this);
   }
+
   handleChange = () => {
     this.setState({ lista: this.state.lista.concat([this.state.item]) });
     this.setState({
       item: {
         nome: '',
         peso: '',
-        altura: ''
+        altura: '',
+        imc: ''
       }
     })
-    console.log(this.state.lista)
-  }
-  handleNome = (event) => {
-    var item = Object.assign({}, this.state.item, { nome: event.target.value });
-    this.setState({ item });
+    
   }
 
-  handlePeso = (event) => {
-    var item = Object.assign({}, this.state.item, { peso: event.target.value });
-    this.setState({ item });
-  }
+  handleInputs(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
 
-  handleAltura = (event) => {
-    var item = Object.assign({}, this.state.item, { altura: event.target.value });
-    this.setState({ item });
+    const item = Object.assign({}, this.state.item, { [name]: event.target.value,imc:153 });
+
+    this.setState({
+      [name]: value,
+      item
+    })
   }
 
 
   render() {
-    var nome = this.state.item.nome;
+    {/*var nome = this.state.item.nome;
     var peso = this.state.item.peso;
-    var altura = this.state.item.altura;
+    var altura = this.state.item.altura;*/}
 
     return (
       <div id="main">
@@ -59,15 +62,15 @@ class App extends Component {
 
           <div className="pure-control-group">
             <label htmlFor="nome">Nome</label>
-            <input id="nome" type="text" name="nome" value={nome} onChange={this.handleNome} />
+            <input id="nome" type="text" name="nome" value={this.state.nome} onChange={this.handleInputs} />
           </div>
           <div className="pure-control-group">
             <label htmlFor="peso">Peso</label>
-            <input id="peso" type="text" name="peso" value={peso} onChange={this.handlePeso} />
+            <input id="peso" type="text" name="peso" value={this.state.peso} onChange={this.handleInputs} />
           </div>
           <div className="pure-control-group">
             <label htmlFor="altura">Altura</label>
-            <input id="altura" type="text" name="altura" value={altura} onChange={this.handleAltura} />
+            <input id="altura" type="text" name="altura" value={this.state.altura} onChange={this.handleInputs} />
           </div>
           <div className="pure-control-group">
             <label></label>
